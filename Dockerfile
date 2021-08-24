@@ -7,11 +7,15 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
   git \
   python3-pip
 
-COPY ./src/* /usr/local/bin/
-RUN chmod ugo+x /usr/local/bin/*
-
 RUN adduser --gecos '' --disabled-password --uid "$USERID" renderuser
-RUN su -c 'pip install rst2html5' renderuser
+
+# User software installs:
+RUN su -c 'pip install --no-warn-script-location rst2html5' renderuser
+
+COPY ./src/homedir/* /home/renderuser/
+COPY ./src/bin/* /usr/local/bin/
+
+RUN chmod ugo+x /usr/local/bin/*
 
 USER $USERID
 ENTRYPOINT ["/usr/local/bin/render-zips.sh"]

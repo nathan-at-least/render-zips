@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+# Do this explicitly because docker doesn't use login/user shells:
+source ~/.bashrc
+
 SELF="$(dirname "$0")"
 SRCDIR='/render-zips/src'
 RENDERDIR='/render-zips/render'
@@ -63,7 +66,7 @@ function render-rst-zips
   for rst in "$SRCDIR"/*.rst
   do
     rname="$(basename "$rst" | sed 's|\.rst$|.html|')"
-    log-run rst2html5 -v --title="FIXME TITLE" "$rst" \> "$RENDERDIR/$rname"
+    log-run rst2html5 -v --title='FIXME-TITLE' "$rst" \> "$RENDERDIR/$rname"
   done
 }
 
