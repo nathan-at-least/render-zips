@@ -6,4 +6,4 @@ BASEDIR="$(dirname "$(dirname "$(readlink -f "$0")")")"
 
 set -x
 cd "$BASEDIR"
-exec docker build -t render-zips .
+exec docker build -t render-zips --build-arg USERID="$(id --user)" .

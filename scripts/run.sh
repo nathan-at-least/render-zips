@@ -1,7 +1,7 @@
 #!/bin/bash
 set -efuo pipefail
 
-DATADIR="$HOME/zips"
+DATADIR="$HOME/render-zips-data"
 
 function main
 {
@@ -12,7 +12,7 @@ function main
     eval "${SCRIPTDIR}/build.sh"
   fi
 
-  [ -d "$DATADIR" ] || mkdir -v "$DATADIR"
+  [ -d "$DATADIR" ] || mkdir -vp "$DATADIR/render"
 
   exec docker run \
     --volume "${DATADIR}:/render-zips" \
